@@ -45,15 +45,15 @@ public class StepDefs {
 		String expected = "Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in";
 		String actual =driver.getTitle();
 		Assert.assertEquals("Page Title validation",expected,actual);
+		//Assert.assertEquals(expected, actual);
     }
 	
 	@When("User Search for product {string}")
-	public void user_Search_for_product(String string) 
-	{
-		WebDriverWait webdriverwait = new WebDriverWait(driver, 20);
-		WebElement SearchBox = webdriverwait.until(ExpectedConditions.elementToBeClickable(By.id("twotabsearchtextbox")));
-		
-		SearchBox.sendKeys("Laptop");
+	public void user_Search_for_product(String productName) {
+		WebDriverWait webDriverWait = new WebDriverWait(driver,20);
+		WebElement elementSearchBox = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.id("twotabsearchtextbox")));
+
+		elementSearchBox.sendKeys(productName);
 		driver.findElement(By.xpath("//input[@value='Go']")).click();
 		
 	}
@@ -61,9 +61,14 @@ public class StepDefs {
 	public void search_Result_page_is_displayed() 
 	{
 		WebDriverWait webdriverwait1 = new WebDriverWait(driver, 20);
-		webdriverwait1.until(ExpectedConditions.titleIs("Amazon.in : Laptop"));
+		String PageUrl = driver.getCurrentUrl();
+		String pagetitle = driver.getTitle();
+		webdriverwait1.until(ExpectedConditions.titleIs(pagetitle));
 		
-		Assert.assertEquals("Page Title validation",driver.getTitle(),"Amazon.in : Laptop");
+		//Assert.assertEquals("Page url validation",driver.getCurrentUrl(),"PageUrl");
+		Assert.assertEquals("Page Title validation",driver.getTitle(),pagetitle);
 	}
+	
+	
 	
 }
