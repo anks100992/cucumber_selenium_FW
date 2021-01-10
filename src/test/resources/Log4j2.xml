@@ -1,65 +1,31 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.visionit.automation</groupId>
-	<artifactId>cucumber_selenium_FW</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<properties>
-		<cucumber.version>6.1.1</cucumber.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+   <Properties>
+       <!-- Setting for creating log file for each run -->
+       <property name="filePattern">${date:yyyy-MM-dd-HH_mm_ss}</property>
+   </Properties>
+   
+   <Appenders>
+       <!-- Setting for creating log file for each run -->
+       <File name="File" fileName="app_${filePattern}.log" append="false">
+           <PatternLayout
+                   pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
+       </File>
+       
+         <Console name="console" target="SYSTEM_OUT">
+           <PatternLayout   pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+       </Console>
+   </Appenders>
+   <Loggers>
 
-	<dependencies>
-
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-junit</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-picocontainer</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>3.141.59</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.13.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.13.1</version>
-		</dependency>
-
-
-	</dependencies>
-
-</project>
+       <Root level="debug" additivity="false">
+           <appender-ref ref="File" />
+           <appender-ref ref="console" />
+       </Root>
+   </Loggers>
+</Configuration>
+       <!--
+       <Logger name="com." level="debug" additivity="true">
+           <appender-ref ref="fileLogger" level="debug" />
+       </Logger>
+       -->
