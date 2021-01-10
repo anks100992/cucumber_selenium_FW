@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,10 +24,11 @@ public class StepDefs {
 	WebDriver driver;
 	String base_url = "https://amazon.in";
 	Logger logger = LogManager.getLogger(StepDefs.class);
-	
+	Scenario scn;
 	@Before
-	public void Setup()
+	public void Setup(Scenario scn)
 	{
+		this.scn = scn;
 		driver = new ChromeDriver();
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
@@ -75,6 +77,7 @@ public class StepDefs {
 		//Assert.assertEquals("Page url validation",driver.getCurrentUrl(),"PageUrl");
 		Assert.assertEquals("Page Title validation",driver.getTitle(),pagetitle);
 		logger.info("After product searched page validation done successfully");
+		scn.log("page validation done successfully :" + pagetitle);
 	}
 	
 	
