@@ -2,6 +2,8 @@ package stepdefs;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +22,7 @@ public class StepDefs {
 
 	WebDriver driver;
 	String base_url = "https://amazon.in";
+	Logger logger = LogManager.getLogger(StepDefs.class);
 	
 	@Before
 	public void Setup()
@@ -28,6 +31,7 @@ public class StepDefs {
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		logger.info("Browser opened");
 	}
 	
 	@After
@@ -35,6 +39,7 @@ public class StepDefs {
 	{
 	 driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS)	;
 	 driver.quit();
+	 logger.info("Browser closed");
     }
 	
 
@@ -42,10 +47,11 @@ public class StepDefs {
 	public void user_able_to_open_desired_site_homepage()
 	{
 		driver.get(base_url);
+		logger.info("base url opened successfully");
 		String expected = "Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in";
 		String actual =driver.getTitle();
 		Assert.assertEquals("Page Title validation",expected,actual);
-		//Assert.assertEquals(expected, actual);
+		logger.info("page validation done sucessfully");
     }
 	
 	@When("User Search for product {string}")
@@ -55,6 +61,7 @@ public class StepDefs {
 
 		elementSearchBox.sendKeys(productName);
 		driver.findElement(By.xpath("//input[@value='Go']")).click();
+		logger.info("product search successfully done");
 		
 	}
 	@Then("Search Result page is displayed")
@@ -67,6 +74,7 @@ public class StepDefs {
 		
 		//Assert.assertEquals("Page url validation",driver.getCurrentUrl(),"PageUrl");
 		Assert.assertEquals("Page Title validation",driver.getTitle(),pagetitle);
+		logger.info("After product searched page validation done successfully");
 	}
 	
 	
